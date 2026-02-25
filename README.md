@@ -1,37 +1,56 @@
-# Video Surveillance Platform
+# Video Surveillance Platform (VSVP)
 
-Платформа для соединения специалистов по установке видеонаблюдения и клиентов.
+Платформа, которая объединяет:
+- **специалистов** по установке видеонаблюдения,
+- **клиентов**, которым нужны услуги,
+- **администратора** для модерации и обратной связи.
 
-## Технологии
+## Уровни доступа
+- `ADMIN` — управление платформой и обратная связь специалистам/клиентам.
+- `SPECIALIST` — поиск клиентов на карте, просмотр клиентов списком.
+- `CLIENT` — поиск специалистов на карте, просмотр специалистов списком.
+
+## Технологический стек
 
 ### Frontend
-- React.js с TypeScript
-- Redux для управления состоянием
-- Webpack для сборки
+- React.js
+- Redux
+- Webpack
+- TypeScript
+- Yandex Maps API (интерактивная карта)
 
 ### Backend
-- Python (FastAPI) - User Service
-- Java - Auth Service & Map Service  
-- Node.js - Real-time Service & API Gateway
-- Go - Feedback Service
+- Python (`backend/user-service`) — API пользователей/клиентов/специалистов.
+- Java (`backend/auth-service`, `backend/map-service`) — высоконагруженные сервисы.
+- Node.js (`backend/realtime-service`) — real-time события/уведомления.
+- Go (`backend/feedback-service`) — микросервис обратной связи.
 
-### База данных
+### Data layer
 - PostgreSQL
 - Docker Compose
 
 ## Быстрый старт
 
-1. Клонируйте репозиторий
-2. Запустите базу данных: `cd database && docker-compose -f docker-compose.db.yml up -d`
-3. Проверьте доступность БД: `http://localhost:8080` (pgAdmin)
+### Только база данных
+```bash
+cd database
+docker compose -f docker-compose.db.yml up -d
+```
+
+### Вся система
+```bash
+cd backend/shared
+cp .env.example .env
+docker compose up -d --build
+```
+
+### Если Docker Hub недоступен (proxy/DNS)
+1. Укажите зеркало или локальный образ Postgres в `backend/shared/.env` через `POSTGRES_IMAGE`.
+2. Проверьте резолв Docker Registry:
+```bash
+docker pull ${POSTGRES_IMAGE:-postgres:16}
+```
+3. При корпоративной сети настройте proxy/DNS в Docker Desktop.
 
 ## Структура проекта
-video-surveillance-platform/
-├── frontend/ # React приложение
-├── backend/ # Микросервисы
-├── database/ # Миграции и конфигурация БД
-└── docs/ # Документация
-
-## Разработка
-
-Следуйте инструкциям в папках каждого сервиса для локальной разработки.
+Актуальная структура хранится в `docs/structure.txt`.

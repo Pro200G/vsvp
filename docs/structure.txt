@@ -1,236 +1,80 @@
-video-surveillance-platform/ 
-├── frontend/             ---------------------------------Клиентская часть.
-│   ├── public/          ----------------------------------Статические файлы, которые не проходят через сборку Webpack (index.html, иконки, манифест для PWA).
-│   │   ├── index.html
-│   │   ├── favicon.ico
-│   │   └── manifest.json
-│   ├── src/            ----------------------------------Исходный код приложения.
-│   │   ├── components/ ----------------------------------Переиспользуемые UI-компоненты, разделенные по логике и доменам.
-│   │   │   ├── common/   -------------------------------Компоненты общего назначения.
-│   │   │   │   ├── Header/
-│   │   │   │   │   ├── Header.tsx
-│   │   │   │   │   └── Header.module.css
-│   │   │   │   ├── Footer/
-│   │   │   │   │   ├── Footer.tsx
-│   │   │   │   │   └── Footer.module.css
-│   │   │   │   └── Layout/
-│   │   │   │       ├── Layout.tsx
-│   │   │   │       └── Layout.module.css
-│   │   │   ├── auth/ -----------------------------------Компоненты для аутентификации (Логин, Регистрация).
-│   │   │   │   ├── Login/
-│   │   │   │   │   ├── Login.tsx
-│   │   │   │   │   └── Login.module.css
-│   │   │   │   └── Register/
-│   │   │   │       ├── Register.tsx
-│   │   │   │       └── Register.module.css
-│   │   │   ├── admin/  --------------------------------/admin, /specialist, /client: Компоненты для каждой роли.
-│   │   │   │   ├── Dashboard/ -------------------------Главная панель.
-│   │   │   │   │   ├── AdminDashboard.tsx
-│   │   │   │   │   └── AdminDashboard.module.css
-│   │   │   │   ├── UserManagement/ -------------------Страница для просмотра списка пользователей.
-│   │   │   │   │   ├── UserManagement.tsx
-│   │   │   │   │   └── UserManagement.module.css
-│   │   │   │   └── Feedback/
-│   │   │   │       ├── AdminFeedback.tsx
-│   │   │   │       └── AdminFeedback.module.css
-│   │   │   ├── specialist/
-│   │   │   │   ├── Dashboard/
-│   │   │   │   │   ├── SpecialistDashboard.tsx
-│   │   │   │   │   └── SpecialistDashboard.module.css
-│   │   │   │   ├── MapView/ ---------------------------Картографические компоненты.
-│   │   │   │   │   ├── SpecialistMap.tsx
-│   │   │   │   │   └── SpecialistMap.module.css
-│   │   │   │   ├── ClientList/
-│   │   │   │   │   ├── ClientList.tsx
-│   │   │   │   │   └── ClientList.module.css
-│   │   │   │   └── Profile/ ---------------------------Страницы профилей.
-│   │   │   │       ├── SpecialistProfile.tsx
-│   │   │   │       └── SpecialistProfile.module.css
-│   │   │   ├── client/
-│   │   │   │   ├── Dashboard/
-│   │   │   │   │   ├── ClientDashboard.tsx
-│   │   │   │   │   └── ClientDashboard.module.css
-│   │   │   │   ├── MapView/
-│   │   │   │   │   ├── ClientMap.tsx
-│   │   │   │   │   └── ClientMap.module.css
-│   │   │   │   ├── SpecialistList/
-│   │   │   │   │   ├── SpecialistList.tsx
-│   │   │   │   │   └── SpecialistList.module.css
-│   │   │   │   └── Profile/
-│   │   │   │       ├── ClientProfile.tsx
-│   │   │   │       └── ClientProfile.module.css
-│   │   │   └── map/ ----------------------------------Общие картографические компонент.
-│   │   │       ├── InteractiveMap/
-│   │   │       │   ├── InteractiveMap.tsx
-│   │   │       │   └── InteractiveMap.module.css
-│   │   │       └── MapMarker/
-│   │   │           ├── MapMarker.tsx
-│   │   │           └── MapMarker.module.css
-│   │   ├── pages/ ------------------------------------Страницы приложения
+video-surveillance-platform/
+├── frontend/                               # React + TypeScript + Redux + Webpack
+│   ├── public/
+│   ├── src/
+│   │   ├── app/                            # Инициализация приложения
+│   │   ├── components/
+│   │   │   ├── admin/                      # UI админа (обратная связь, модерация)
+│   │   │   ├── specialist/                 # UI специалиста (карта клиентов, заявки)
+│   │   │   ├── client/                     # UI клиента (карта специалистов, заказы)
+│   │   │   ├── map/                        # Общие компоненты карт (Yandex Maps)
+│   │   │   └── common/
+│   │   ├── pages/
+│   │   │   ├── Login/
 │   │   │   ├── Home/
-│   │   │   │   ├── HomePage.tsx
-│   │   │   │   └── HomePage.module.css
-│   │   │   ├── About/
-│   │   │   │   ├── AboutPage.tsx
-│   │   │   │   └── AboutPage.module.css
-│   │   │   └── Contact/
-│   │   │       ├── ContactPage.tsx
-│   │   │       └── ContactPage.module.css
-│   │   ├── store/ ------------------------------------Redux Store для управления глобальным состоянием.
-│   │   │   ├── slices/ -------------------------------Части состояния для разных сущностей.
-│   │   │   │   ├── authSlice.ts
-│   │   │   │   ├── userSlice.ts
-│   │   │   │   ├── mapSlice.ts
-│   │   │   │   └── feedbackSlice.ts
-│   │   │   ├── actions/ -----------------------------Действия для изменения состояния.
-│   │   │   │   ├── authActions.ts
-│   │   │   │   ├── userActions.ts
-│   │   │   │   └── mapActions.ts
-│   │   │   └── index.ts
-│   │   ├── types/ ------------------------------------Типы для строгой типизации данных.
-│   │   │   ├── User.ts
-│   │   │   ├── Specialist.ts
-│   │   │   ├── Client.ts
-│   │   │   ├── Service.ts
-│   │   │   └── Feedback.ts
-│   │   ├── services/ --------------------------------Слой для работы с API.
-│   │   │   ├── api/ ---------------------------------Файлы с непосредственными HTTP-запросами к бэкенду.
-│   │   │   │   ├── authAPI.ts
-│   │   │   │   ├── userAPI.ts
-│   │   │   │   ├── mapAPI.ts
-│   │   │   │   └── feedbackAPI.ts
-│   │   │   ├── auth/ --------------------------------Сервисы, инкапсулирующие бизнес-логику работы с данными.
-│   │   │   │   └── authService.ts
-│   │   │   └── map/ --------------------------------Сервисы, инкапсулирующие бизнес-логику работы с данными.
-│   │   │       └── mapService.ts
-│   │   ├── utils/ ----------------------------------Вспомогательные функции.
-│   │   │   ├── constants.ts
-│   │   │   ├── helpers.ts
-│   │   │   └── validation.ts
-│   │   ├── hooks/ -----------------------------------Кастомные React-хуки.
-│   │   │   ├── useAuth.ts
-│   │   │   ├── useMap.ts
-│   │   │   └── useUsers.ts
-│   │   ├── styles/ ----------------------------------Глобальные CSS-стили и переменные.
-│   │   │   ├── globals.css
-│   │   │   ├── variables.css
-│   │   │   └── mixins.css
-│   │   ├── App.tsx
-│   │   ├── App.css ----------------------------------Корневые файлы приложения, включая роутинг.
-│   │   ├── index.tsx
-│   │   └── routes.tsx
-│   ├── package.json
-│   ├── tsconfig.json -------------------------------Конфигурационные файлы для зависимостей, TypeScript и сборщика Webpack.
+│   │   │   ├── Map/
+│   │   │   ├── SpecialistList/
+│   │   │   └── ClientList/
+│   │   ├── features/
+│   │   │   ├── auth/
+│   │   │   ├── users/
+│   │   │   ├── map/
+│   │   │   └── feedback/
+│   │   ├── routes/                         # Роутинг по ролям: admin/specialist/client
+│   │   ├── services/api/
+│   │   ├── store/
+│   │   ├── hooks/
+│   │   └── types/
 │   ├── webpack.config.js
-│   └── .env
-├── backend/ ----------------------------------------Серверная часть - Микросервисы.
-│   ├── api-gateway/ --------------------------------Единая точка входа для всех запросов с фронтенда.
-│   │   ├── src/
-│   │   │   ├── controllers/ -----------------------Обработка маршрутов.
-│   │   │   ├── middleware/ ------------------------Промежуточное ПО (например, для проверки JWT-токена).
-│   │   │   ├── routes/ ----------------------------Обработка маршрутов.
-│   │   │   └── config/
-│   │   ├── package.json
-│   │   └── Dockerfile
-│   ├── auth-service/ ------------------------------Сервис аутентификации и авторизации.
-│   │   ├── src/
-│   │   │   ├── main/
-│   │   │   │   ├── java/com/videosurveillance/auth/
-│   │   │   │   │   ├── AuthApplication.java ------Главный класс для запуска приложения.
-│   │   │   │   │   ├── controllers/
-│   │   │   │   │   ├── services/
-│   │   │   │   │   ├── repositories/ -------------Классическая структура Spring-приложения (MVC-паттерн).
-│   │   │   │   │   ├── models/
-│   │   │   │   │   └── config/
-│   │   │   │   └── resources/
-│   │   │   └── build.gradle
-│   │   └── Dockerfile
-│   ├── user-service/ -----------------------------Управление данными пользователей (клиентов и специалистов).
-│   │   ├── src/
-│   │   │   ├── app/ ------------------------------Структура для FastAPI/Flask.
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── main.py
-│   │   │   │   ├── models/ -----------------------SQLAlchemy.
-│   │   │   │   │   ├── __init__.py
-│   │   │   │   │   ├── user.py
-│   │   │   │   │   ├── specialist.py
-│   │   │   │   │   └── client.py
-│   │   │   │   ├── schemas/ ---------------------Pydantic для валидации.
-│   │   │   │   │   ├── __init__.py
-│   │   │   │   │   ├── client.py
-│   │   │   │   │   ├── user.py
-│   │   │   │   │   └── specialist.py
-│   │   │   │   ├── routes/ ----------------------Эндпоинты.
-│   │   │   │   │   ├── __init__.py
-│   │   │   │   │   ├── users.py
-│   │   │   │   │   ├── specialists.py
-│   │   │   │   │   └── clients.py
-│   │   │   │   └── database/
-│   │   │   │       ├── __init__.py
-│   │   │   │       └── connection.py
-│   │   │   ├── requirements.txt
-│   │   │   └── Dockerfile
-│   ├── map-service/ -------------------------------Сервис для работы с картографическими данными и геолокацией.
-│   │   ├── src/
-│   │   │   ├── main/
-│   │   │   │   ├── java/com/videosurveillance/map/
-│   │   │   │   │   ├── MapApplication.java
-│   │   │   │   │   ├── controllers/
-│   │   │   │   │   ├── services/
-│   │   │   │   │   ├── repositories/
-│   │   │   │   │   └── models/
-│   │   │   │   └── resources/
-│   │   │   └── build.gradle
-│   │   └── Dockerfile
-│   ├── realtime-service/ --------------------------Сервис для реального времени (уведомления, чаты между клиентами и специалистами).
-│   │   ├── src/
-│   │   │   ├── app/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── main.py
-│   │   │   │   ├── websocket/
-│   │   │   │   │   ├── __init__.py
-│   │   │   │   │   └── handlers.py --------------Логика обработки WebSocket-соединений.
-│   │   │   │   ├── models/
-│   │   │   │   │   └── __init__.py
-│   │   │   │   └── services/
-│   │   │   │       ├── __init__.py
-│   │   │   │       └── notification.py
-│   │   │   ├── package.json
-│   │   │   └── Dockerfile
-│   ├── feedback-service/ -------------------------Сервис для работы с отзывами и обратной связью.
-│   │   ├── src/
-│   │   │   ├── app/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── main.py
-│   │   │   │   ├── models/
-│   │   │   │   │   └── __init__.py
-│   │   │   │   ├── routes/
-│   │   │   │   │   └── feedback.py
-│   │   │   │   └── services/
-│   │   │   │       └── feedback.py
-│   │   │   ├── go.mod
-│   │   │   ├── main.go -------------------------Точка входа.
-│   │   │   └── Dockerfile
-│   └── shared/ ---------------------------------Общие ресурсы для развертывания всей системы.
-│       ├── docker-compose.yml ------------------Главный файл для оркестрации всех микросервисов и зависимостей.
-│       ├── nginx/ ------------------------------Обратный прокси и балансировщик нагрузки перед API-Gateway.
-│       │   └── nginx.conf
-│       └── scripts/ ----------------------------Вспомогательные скрипты для развертывания и инициализации.
-│           ├── init-db.sql
-│           └── deploy.sh
+│   ├── tsconfig.json
+│   └── package.json
+├── backend/
+│   ├── user-service/                       # Python API (Flask/FastAPI/Django-compatible структура)
+│   │   └── src/app/
+│   │       ├── routes/                     # users, specialists, clients
+│   │       ├── services/
+│   │       ├── schemas/
+│   │       ├── models/
+│   │       └── database/
+│   ├── auth-service/                       # Java highload service
+│   │   └── src/main/java/com/vsvp/auth/
+│   │       ├── controller/
+│   │       ├── service/
+│   │       ├── repository/
+│   │       ├── model/
+│   │       └── config/
+│   ├── map-service/                        # Java highload geo service + Yandex Maps integration
+│   │   └── src/main/java/com/vsvp/map/
+│   │       ├── controller/
+│   │       ├── service/
+│   │       ├── repository/
+│   │       ├── model/
+│   │       ├── config/
+│   │       └── client/
+│   ├── realtime-service/                   # Node.js websocket/events
+│   │   └── src/
+│   │       ├── gateway/
+│   │       ├── modules/chat/
+│   │       ├── modules/notifications/
+│   │       └── modules/presence/
+│   ├── feedback-service/                   # Go microservice for admin feedback
+│   │   ├── cmd/server/main.go
+│   │   ├── internal/
+│   │   │   ├── handler/
+│   │   │   ├── service/
+│   │   │   ├── repository/
+│   │   │   └── model/
+│   │   └── pkg/httpx/
+│   └── shared/
+│       ├── docker-compose.yml              # Оркестрация всех сервисов
+│       ├── .env.example                    # Параметры запуска/образы
+│       ├── nginx/nginx.conf
+│       └── scripts/bootstrap.sh
 ├── database/
-│   ├── migrations/ ----------------------------Файлы миграций для последовательного изменения схемы БД.
-│   │   ├── 001_init_schema.sql
-│   │   ├── 002_add_users.sql
-│   │   └── 003_add_locations.sql
-│   ├── seeds/ ---------------------------------Начальные данные для тестирования (специалисты, клиенты).
-│   │   ├── specialists.sql
-│   │   └── clients.sql
-│   └── docker-compose.db.yml ------------------Отдельный compose-файл для запуска только базы данных.
+│   ├── migrations/
+│   ├── seeds/
+│   └── docker-compose.db.yml
 ├── docs/
-│   ├── api/ -----------------------------------Документация по API для каждого сервиса.
-│   │   ├── auth-api.md
-│   │   ├── user-api.md
-│   │   └── map-api.md
-│   └── deployment.md -------------------------Инструкции по развертыванию.
+│   ├── structure.txt
+│   └── api/
 └── README.md

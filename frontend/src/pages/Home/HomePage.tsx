@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
       <section className="hero">
         <h1>Платформа для специалистов по видеонаблюдению</h1>
         <p>Найдите идеального специалиста или новых клиентов для ваших услуг</p>
-        
+
         <div className="quick-actions">
           <Link to="/specialists" className="action-btn primary">
             👨‍💼 Найти специалистов
@@ -18,6 +18,9 @@ const HomePage: React.FC = () => {
           </Link>
           <Link to="/map" className="action-btn tertiary">
             🗺️ Открыть карту
+          </Link>
+          <Link to="/result" className="action-btn tertiary">
+            ✅ Посмотреть результат
           </Link>
         </div>
       </section>

@@ -5,7 +5,8 @@ import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
 import SpecialistListPage from './pages/SpecialistList/SpecialistListPage';
 import ClientListPage from './pages/ClientList/ClientListPage';
-import MapPage from './pages/Map/MapPage'; // Теперь импортируем исправленную версию
+import MapPage from './pages/Map/MapPage';
+import ResultPage from './pages/Result/ResultPage';
 import './App.css';
 
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="/specialists" element={<SpecialistListPage />} />
           <Route path="/clients" element={<ClientListPage />} />
           <Route path="/map" element={<MapPage />} />
+          <Route path="/result" element={<ResultPage />} />
         </Routes>
       </Layout>
     </Router>

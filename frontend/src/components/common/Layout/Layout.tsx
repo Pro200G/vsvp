@@ -28,6 +28,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Link to="/map" className={`nav-link ${location.pathname === '/map' ? 'active' : ''}`}>
               Карта
             </Link>
+            <Link to="/result" className={`nav-link ${location.pathname === '/result' ? 'active' : ''}`}>
+              Результат
+            </Link>
             {!isLoginPage && (
               <Link to="/login" className="login-link">
                 Войти

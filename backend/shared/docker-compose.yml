@@ -1,0 +1,65 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: vsvp-postgres
+    environment:
+      POSTGRES_USER: vsvp
+      POSTGRES_PASSWORD: vsvp
+      POSTGRES_DB: vsvp
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../../database/migrations:/docker-entrypoint-initdb.d/migrations
+      - ../../database/seeds:/docker-entrypoint-initdb.d/seeds
+
+  user-service:
+    build: ../user-service
+    container_name: vsvp-user-service
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+
+  auth-service:
+    build: ../auth-service
+    container_name: vsvp-auth-service
+    ports:
+      - "8081:8081"
+
+  map-service:
+    build: ../map-service
+    container_name: vsvp-map-service
+    environment:
+      YANDEX_MAPS_API_KEY: ${YANDEX_MAPS_API_KEY:-}
+    ports:
+      - "8082:8082"
+
+  realtime-service:
+    build: ../realtime-service
+    container_name: vsvp-realtime-service
+    ports:
+      - "3001:3001"
+
+  feedback-service:
+    build: ../feedback-service
+    container_name: vsvp-feedback-service
+    ports:
+      - "8083:8083"
+
+  frontend:
+    build: ../../frontend
+    container_name: vsvp-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - user-service
+      - auth-service
+      - map-service
+      - realtime-service
+      - feedback-service
+
+volumes:
+  postgres_data:

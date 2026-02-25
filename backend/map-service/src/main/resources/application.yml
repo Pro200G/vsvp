@@ -1,0 +1,4 @@
+server:
+  port: 8082
+external:
+  yandexMapsApiKey: ${YANDEX_MAPS_API_KEY:}
